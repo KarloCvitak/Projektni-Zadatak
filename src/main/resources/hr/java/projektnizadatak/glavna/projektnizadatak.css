@@ -1,0 +1,19 @@
+.button {
+    -fx-background-color: #3f51b5;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #303f9f;
+}
+
+.button:pressed {
+    -fx-background-color: #1a237e;
+}
+
+.vbox{
+
+    -fx-background-color: #361D2EFF;
+
+}
+
