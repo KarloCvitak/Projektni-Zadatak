@@ -3,9 +3,11 @@ package hr.java.projektnizadatak.glavna;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class Glavna extends Application {
 
@@ -17,6 +19,7 @@ public class Glavna extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("pocetna.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
         scene.getStylesheets().add(getClass().getResource("projektnizadatak.css").toExternalForm());
+        stage.getIcons().add(new Image(Path.of("dat/icon.png").toAbsolutePath().toString()));
         stage.setTitle("Faktura");
         stage.setScene(scene);
         stage.show();

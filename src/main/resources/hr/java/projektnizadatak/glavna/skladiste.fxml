@@ -22,8 +22,8 @@
       <GridPane alignment="CENTER" layoutX="201.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="gridpane">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="239.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="660.0" minWidth="10.0" prefWidth="266.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="660.0" minWidth="10.0" prefWidth="292.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="660.0" minWidth="10.0" prefWidth="238.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="660.0" minWidth="10.0" prefWidth="320.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
@@ -43,7 +43,7 @@
                   <TableColumn fx:id="kolicinaTableColumn" prefWidth="74.0" text="Kolicina" />
               </columns>
             </TableView>
-            <ChoiceBox prefWidth="150.0" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <ChoiceBox fx:id="kategorijaChoiceBox" prefWidth="150.0" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>
@@ -56,7 +56,7 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="sifraTextField" prefHeight="25.0" prefWidth="169.0" GridPane.rowIndex="1">
+            <TextField fx:id="sifraTextField" onAction="#pretraziSkladiste" prefHeight="25.0" prefWidth="169.0" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>
@@ -69,12 +69,12 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </Label>
-            <RadioButton mnemonicParsing="false" text="Dostupno" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+            <RadioButton fx:id="dostupnoRadioButton" mnemonicParsing="false" text="Dostupno" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Ne dostupno" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <RadioButton fx:id="nedostupnoRadioButton" mnemonicParsing="false" text="Ne dostupno" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="25.0" />
                </GridPane.margin>
@@ -86,6 +86,19 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
+            <Label text="Marka:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <ChoiceBox fx:id="markaChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </ChoiceBox>
          </children>
       </GridPane>
    </children>

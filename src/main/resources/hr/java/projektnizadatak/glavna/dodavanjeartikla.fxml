@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -8,6 +10,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500" minWidth="700" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.projektnizadatak.glavna.UredivanjeSkladistaController">
    <children>
@@ -19,30 +22,87 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="660.0" minWidth="10.0" prefWidth="292.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="290.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="290.0" minHeight="8.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="290.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="529.0" minHeight="10.0" prefHeight="464.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="503.0" prefWidth="798.0" GridPane.columnSpan="3" GridPane.rowIndex="7">
+            <TableView fx:id="artiklTableView" prefHeight="503.0" prefWidth="798.0" GridPane.columnSpan="3" GridPane.rowIndex="8">
               <columns>
-                <TableColumn prefWidth="78.0" text="Sifra" />
-                <TableColumn minWidth="2.0" prefWidth="105.0" text="Robna Marka" />
-                  <TableColumn minWidth="3.0" prefWidth="93.0" text="Kataloski Broj" />
-                  <TableColumn prefWidth="72.0" text="Kategorija" />
-                  <TableColumn prefWidth="69.0" text="Cijena" />
-                  <TableColumn prefWidth="74.0" text="Kolicina" />
+                <TableColumn fx:id="sifraTableColumn" prefWidth="78.0" text="Sifra" />
+                <TableColumn fx:id="robnaMarkaTableColumn" minWidth="2.0" prefWidth="105.0" text="Robna Marka" />
+                  <TableColumn fx:id="kataloskiBrojTableColumn" minWidth="3.0" prefWidth="93.0" text="Kataloski Broj" />
+                  <TableColumn fx:id="kategorijaTableColumn" prefWidth="72.0" text="Kategorija" />
+                  <TableColumn fx:id="cijenaTableColumn" prefWidth="69.0" text="Cijena" />
+                  <TableColumn fx:id="kolicinaTableColumn" prefWidth="74.0" text="Kolicina" />
               </columns>
             </TableView>
             <Button fx:id="povratak" mnemonicParsing="false" onAction="#povratak" text="Povratak" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField prefHeight="25.0" prefWidth="210.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="25.0" right="25.0" />
+               </GridPane.margin></TextField>
+            <TextField GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="25.0" right="25.0" />
+               </GridPane.margin></TextField>
+            <TextField GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="25.0" right="25.0" />
+               </GridPane.margin></TextField>
+            <Button mnemonicParsing="false" onAction="#delete" text="Obrisi artikl" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label text="Sifra:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Robna Marka:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Kataloski Broj:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Kategorija:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Cijena:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Kolicina:" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField prefHeight="25.0" prefWidth="210.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="25.0" right="25.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField prefHeight="25.0" prefWidth="210.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="25.0" right="25.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField prefHeight="25.0" prefWidth="210.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="25.0" right="25.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#delete" text="Dodaj artikl" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
    </children>
