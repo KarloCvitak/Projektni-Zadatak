@@ -43,7 +43,7 @@
                   <TableColumn fx:id="kolicinaTableColumn" prefWidth="74.0" text="Kolicina" />
               </columns>
             </TableView>
-            <ChoiceBox fx:id="kategorijaChoiceBox" prefWidth="150.0" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <ChoiceBox fx:id="kategorijaChoiceBox" onAction="#pretraziSkladiste" prefWidth="150.0" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>
@@ -69,19 +69,19 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </Label>
-            <RadioButton fx:id="dostupnoRadioButton" mnemonicParsing="false" text="Dostupno" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+            <RadioButton fx:id="dostupnoRadioButton" mnemonicParsing="false" onAction="#pretraziSkladiste" text="Dostupno" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="25.0" />
                </GridPane.margin>
             </RadioButton>
-            <RadioButton fx:id="nedostupnoRadioButton" mnemonicParsing="false" text="Ne dostupno" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <RadioButton fx:id="nedostupnoRadioButton" mnemonicParsing="false" onAction="#pretraziSkladiste" text="Ne dostupno" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="25.0" />
                </GridPane.margin>
             </RadioButton>
             <Button mnemonicParsing="false" onAction="#prikaziUredivanjeSkladista" text="Dodavanje artikla" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Opis" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+            <TextArea fx:id="prikazDobavljaca" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Informacije o dobavljacu" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

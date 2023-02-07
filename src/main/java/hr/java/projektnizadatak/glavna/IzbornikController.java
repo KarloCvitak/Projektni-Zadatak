@@ -14,6 +14,13 @@ public class IzbornikController {
     }
 
 
+    @FXML
+    public void prikaziIzradaRacuna(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("izradaracuna.fxml"));
+        Glavna.prikaziScene(fxmlLoader);
+    }
+
+
 
 
 }

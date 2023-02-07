@@ -2,11 +2,11 @@ package hr.java.projektnizadatak.entitet;
 
 public enum Kategorija {
 
-    TELEVIZOR ("televizor"),
-    MOBITELI ("mobiteli"),
-    BIJELA_TEHNIKA ("bijela tehnika"),
-    LAPTOPI ("laptopi"),
-    MALI_KUCANSKI("mali kucanski");
+    TELEVIZOR ("TELEVIZOR"),
+    MOBITELI ("MOBITELI"),
+    BIJELA_TEHNIKA ("BIJELA_TEHNIKA"),
+    LAPTOPI ("LAPTOPI"),
+    MALI_KUCANSKI("MALI_KUCANSKI");
 
 
 

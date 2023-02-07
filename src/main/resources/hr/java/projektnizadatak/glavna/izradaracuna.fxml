@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-500" minWidth="-700" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.projektnizadatak.glavna.PocetnaController">
+   <children>
+      <GridPane layoutX="205.0" layoutY="6.0" prefHeight="694.0" prefWidth="795.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="261.0" minHeight="10.0" prefHeight="253.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="480.0" minHeight="10.0" prefHeight="255.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="226.0" minHeight="5.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="255.0" minHeight="10.0" prefHeight="146.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ListView fx:id="artiklViewList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="DODAJ" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
+      <fx:include source="izbornik.fxml" />
+   </children>
+</AnchorPane>
