@@ -104,10 +104,16 @@ public class BazaPodataka {
                     sqlUpit.append(" AND KATEGORIJA LIKE '%" + artikl.getKategorija() + "%'");
 
                 if(artikl.getCijenaProizvoda() != null)
-                    sqlUpit.append(" AND CIJENA LIKE '%" + artikl.getCijenaProizvoda() + "%'");
+                    sqlUpit.append(" AND CIJENA =" + artikl.getCijenaProizvoda());
 
-                if(artikl.getKolicinaProizvoda() != null)
-                    sqlUpit.append(" AND KOLICINA LIKE '%" + artikl.getKolicinaProizvoda() + "%'");
+                if(artikl.getKolicinaProizvoda() != null) {
+                    if (artikl.getKolicinaProizvoda() == 0)
+                        sqlUpit.append(" AND KOLICINA = " + artikl.getKolicinaProizvoda());
+                    if (artikl.getKolicinaProizvoda() == -1)
+                        sqlUpit.append(" AND KOLICINA <> 0");
+
+                }
+
 
                 if(artikl.getDobavljac().imeDobavljaca() != null)
                     sqlUpit.append(" AND IME_DOBAVLJACA LIKE '%" + artikl.getDobavljac().imeDobavljaca() + "%'");

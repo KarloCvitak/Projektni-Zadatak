@@ -16,7 +16,9 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SkladisteController {
 
@@ -46,11 +48,12 @@ public class SkladisteController {
     private RadioButton nedostupnoRadioButton;
 
     @FXML
-    private  ChoiceBox<Artikl> markaChoiceBox;
+    private  ChoiceBox<String> markaChoiceBox;
     @FXML
-    private ChoiceBox<Artikl> kategorijaChoicebox;
+    private ChoiceBox<Kategorija> kategorijaChoiceBox;
 
-
+    @FXML
+    private TextArea prikazDobavljaca;
 
 
     private final ToggleGroup dostupnost = new ToggleGroup();
@@ -58,8 +61,9 @@ public class SkladisteController {
     public void initialize(){
         try {
             artikli = BazaPodataka.getArtikl();
-           //  markaChoiceBox.setItems(FXCollections.observableList(BazaPodataka.get);
-           // kategorijaChoicebox.setItems(FXCollections.observableList(Kategorija));
+            kategorijaChoiceBox.setItems(FXCollections.observableList(Arrays.stream(Kategorija.values()).toList()));
+            markaChoiceBox.setItems(FXCollections.observableArrayList(artikli.stream().map(Artikl::getRobnaMarkaProizvoda).collect(Collectors.toSet())));
+
 
 
         } catch (BazaPodatakaException e) {
@@ -80,7 +84,11 @@ public class SkladisteController {
         artiklTableView.setItems(FXCollections.observableList(artikli));
 
 
-
+        artiklTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                prikazDobavljaca.setText(newSelection.getDobavljac().imeDobavljaca() + "\n" + newSelection.getDobavljac().lokacijaDobavljaca());
+            }
+        });
     }
 
 
@@ -90,28 +98,41 @@ public class SkladisteController {
         Glavna.prikaziScene(fxmlLoader);
     }
 
+   public void setPrikazDobavljaca(){
+
+
+
+   }
+
+
     public void pretraziSkladiste(){
 
         String sifra = sifraTextField.getText();
         Integer kolicinaProizvoda = null;
 
+        Kategorija kategorija = kategorijaChoiceBox.getValue();
+        String marka = markaChoiceBox.getValue();
+
+        boolean dostupno = dostupnoRadioButton.isSelected();
+        boolean nedostupno = nedostupnoRadioButton.isSelected();
+
+
+        if(nedostupno){
+            kolicinaProizvoda = 0;
+        }
+        if(dostupno){
+            kolicinaProizvoda = -1;
+        }
+
         if(sifra.isEmpty())
             sifra = null;
 
 
-        Boolean dostupno = dostupnoRadioButton.isSelected();
-        Boolean nedostupno = nedostupnoRadioButton.isSelected();
 
-
-        if (dostupno){
-        kolicinaProizvoda = 15;
-        } else{
-          kolicinaProizvoda = 0;
-        }
 
 
         try {
-            artiklTableView.setItems(FXCollections.observableList(BazaPodataka.getFilteredArtikl(new Artikl(null, sifra, null, null, null, null, kolicinaProizvoda, new Dobavljaci(null,null)))));
+            artiklTableView.setItems(FXCollections.observableList(BazaPodataka.getFilteredArtikl(new Artikl(null, sifra, marka, null, kategorija, null, kolicinaProizvoda, new Dobavljaci(null,null)))));
         } catch (BazaPodatakaException e) {
             throw new RuntimeException(e);
         }
@@ -121,3 +142,15 @@ public class SkladisteController {
 
 
 }
+
+
+/*
+*    if(nedostupno){
+            kolicinaProizvoda = 0;
+        }
+        if (dostupno){
+            kolicinaProizvoda = null;
+        }
+
+*
+* */
