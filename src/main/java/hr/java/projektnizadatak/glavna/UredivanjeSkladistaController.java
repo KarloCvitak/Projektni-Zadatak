@@ -5,7 +5,8 @@ import hr.java.projektnizadatak.entitet.Dobavljaci;
 import hr.java.projektnizadatak.entitet.Kategorija;
 import hr.java.projektnizadatak.entitet.Lokacija;
 import hr.java.projektnizadatak.iznimke.BazaPodatakaException;
-import hr.java.projektnizadatak.util.BazaPodataka;
+import hr.java.projektnizadatak.baza.BazaPodataka;
+import hr.java.projektnizadatak.threads.UpdateTable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -18,6 +19,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class UredivanjeSkladistaController {
 
@@ -41,22 +45,23 @@ public class UredivanjeSkladistaController {
     private TableColumn<Artikl, String> kolicinaTableColumn;
 
     @FXML
-    private TextField sifraTextField;
+    private  TextField sifraTextField;
     @FXML
-    private TextField robnaMarkaTextField;
+    private  TextField robnaMarkaTextField;
     @FXML
-    private TextField kataloskiBrojTextField;
+    private  TextField kataloskiBrojTextField;
     @FXML
-    private TextField cijenaTextField;
+    private  TextField cijenaTextField;
     @FXML
-    private TextField kolicinaTextField;
+    private  TextField kolicinaTextField;
     @FXML
-    private ChoiceBox<Kategorija> kategorijaChoiceBox;
+    private  ChoiceBox<Kategorija> kategorijaChoiceBox;
     @FXML
-    private ChoiceBox <Lokacija> dostavaChoiceBox;
+    private  ChoiceBox <Lokacija> dostavaChoiceBox;
     @FXML
-    private TextField dostavaTextField;
+    private  TextField dostavaTextField;
 
+    Long id;
     public void initialize(){
         try {
             artikli = BazaPodataka.getArtikl();
@@ -80,12 +85,34 @@ public class UredivanjeSkladistaController {
 
         artiklTableView.setItems(FXCollections.observableList(artikli));
 
-
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new UpdateTable(artiklTableView));
+        executorService.shutdown();
 
     }
 
+
+
     @FXML
-    public void spremi(){
+    public void setArtikl(){
+        if(!artiklTableView.getSelectionModel().isEmpty()){
+            Artikl artikl = artiklTableView.getSelectionModel().getSelectedItem();
+            id = artikl.getId();
+            sifraTextField.setText(artikl.getSifraProizvoda());
+            robnaMarkaTextField.setText(artikl.getRobnaMarkaProizvoda());
+            kataloskiBrojTextField.setText(artikl.getKataloskiBrojProizvoda());
+            cijenaTextField.setText(artikl.getCijenaProizvoda().toString());
+            kolicinaTextField.setText(artikl.getKolicinaProizvoda().toString());
+            kategorijaChoiceBox.setValue(artikl.getKategorija());
+            dostavaTextField.setText(artikl.getDobavljac().imeDobavljaca());
+            dostavaChoiceBox.setValue(artikl.getDobavljac().lokacijaDobavljaca());
+        }
+    }
+
+
+
+    @FXML
+    public void update(){
         try {
             String sifra = sifraTextField.getText();
             String marka = robnaMarkaTextField.getText();
@@ -103,6 +130,7 @@ public class UredivanjeSkladistaController {
             Lokacija lokacija = dostavaChoiceBox.getValue();
 
             List<String> greske = new ArrayList<>();
+            List<String> greskeZaKriviBroj = new ArrayList<>();
 
             if(sifra.isEmpty())
                 greske.add("sifra");
@@ -111,21 +139,10 @@ public class UredivanjeSkladistaController {
             if(kataloskiBroj.isEmpty())
                 greske.add("kataloski broj");
 
-            if(cijena.isEmpty())
-                greske.add("cijena");
-            else{
-               cijenaBD = BigDecimal.valueOf(Long.parseLong(cijena));
 
-            }
 
-            if(kolicina.isEmpty())
-              greske.add("kolicina");
-            else {
-               kolicinaINT = Integer.parseInt(kolicina);
-            }
-
-               if(ime.isEmpty())
-              greske.add("ime dostavljaca");
+            if(ime.isEmpty())
+                greske.add("ime dostavljaca");
 
             if(kategorija == null){
                 greske.add("kategorija");
@@ -136,8 +153,27 @@ public class UredivanjeSkladistaController {
 
             }
 
+            if(cijena.isEmpty())
+                greske.add("cijena");
+            else {
+                cijenaBD = new BigDecimal(cijena);
+
+           //     if (BigDecimal.valueOf(Long.parseLong(cijena)).compareTo(BigDecimal.ZERO) < 0)
+             //       Glavna.pogresniUnosBroja("negativni broj");
+
+            }
+
+            if(kolicina.isEmpty())
+                greske.add("kolicina");
+            else {
+                kolicinaINT = Integer.parseInt(kolicina);
+                if(kolicinaINT < 0)
+                    Glavna.pogresniUnosBroja("negativni broj");
+            }
+
+
             if(greske.isEmpty()){
-                BazaPodataka.addArtikl(new Artikl(null, sifra, marka, kataloskiBroj, kategorija , cijenaBD, kolicinaINT, new Dobavljaci(ime, lokacija)));
+                BazaPodataka.editArtikl(new Artikl(id, sifra, marka, kataloskiBroj, kategorija , cijenaBD, kolicinaINT, new Dobavljaci(ime, lokacija)));
             }
             else
                 Glavna.pogresanUnosPodataka(greske);
@@ -146,6 +182,78 @@ public class UredivanjeSkladistaController {
             throw new RuntimeException(e);
         }
     }
+
+
+    @FXML
+    public void spremi() {
+        try {
+            String sifra = sifraTextField.getText();
+            String marka = robnaMarkaTextField.getText();
+            String kataloskiBroj = kataloskiBrojTextField.getText();
+
+
+            String cijena = cijenaTextField.getText();
+            String kolicina = kolicinaTextField.getText();
+
+            BigDecimal cijenaBD = null;
+            Integer kolicinaINT = null;
+
+            Kategorija kategorija = kategorijaChoiceBox.getValue();
+            String ime = dostavaTextField.getText();
+            Lokacija lokacija = dostavaChoiceBox.getValue();
+
+            List<String> greske = new ArrayList<>();
+            List<String> greskeZaKriviBroj = new ArrayList<>();
+
+            if (sifra.isEmpty())
+                greske.add("sifra");
+            if (marka.isEmpty())
+                greske.add("marka");
+            if (kataloskiBroj.isEmpty())
+                greske.add("kataloski broj");
+
+
+            if (ime.isEmpty())
+                greske.add("ime dostavljaca");
+
+            if (kategorija == null) {
+                greske.add("kategorija");
+            }
+
+            if (lokacija == null) {
+                greske.add("lokacija");
+
+            }
+
+            if (cijena.isEmpty())
+                greske.add("cijena");
+              else {
+                cijenaBD = new BigDecimal(cijena);
+
+             //   if (BigDecimal.valueOf(Long.parseLong(cijena)).compareTo(BigDecimal.ZERO) < 0)
+               //      Glavna.pogresniUnosBroja("negativni broj");
+                }
+
+                if (kolicina.isEmpty())
+                    greske.add("kolicina");
+                else {
+                    kolicinaINT = Integer.parseInt(kolicina);
+                    if(kolicinaINT < 0)
+                       Glavna.pogresniUnosBroja("negativni broj");
+                }
+
+
+                if (greske.isEmpty())
+                    BazaPodataka.addArtikl(new Artikl(null, sifra, marka, kataloskiBroj, kategorija, cijenaBD, kolicinaINT, new Dobavljaci(ime, lokacija)));
+                else
+                    Glavna.pogresanUnosPodataka(greske);
+
+            }
+             catch (BazaPodatakaException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @FXML
     public void povratak(){

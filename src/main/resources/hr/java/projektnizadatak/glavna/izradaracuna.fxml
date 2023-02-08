@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-500" minWidth="-700" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.projektnizadatak.glavna.PocetnaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-500" minWidth="-700" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.projektnizadatak.glavna.IzradaRacunaController">
    <children>
       <GridPane layoutX="205.0" layoutY="6.0" prefHeight="694.0" prefWidth="795.0">
         <columnConstraints>
@@ -21,8 +22,15 @@
           <RowConstraints maxHeight="255.0" minHeight="10.0" prefHeight="146.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="artiklViewList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="DODAJ" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#dodaj" text="DODAJ" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <TableView fx:id="artiklTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="sifraTableColumn" prefWidth="75.0" text="Šifra" />
+                <TableColumn fx:id="kataloskiBrojTableColumn" prefWidth="104.0" text="Kataloski Broj" />
+                  <TableColumn fx:id="robnaMarkaTableColumn" prefWidth="75.0" text="Marka" />
+                  <TableColumn fx:id="cijenaTableColumn" prefWidth="75.0" text="Cijena" />
+              </columns>
+            </TableView>
          </children>
       </GridPane>
       <fx:include source="izbornik.fxml" />

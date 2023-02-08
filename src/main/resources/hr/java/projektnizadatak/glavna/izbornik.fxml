@@ -28,7 +28,7 @@
             <Insets top="25.0" />
          </VBox.margin>
       </Button>
-      <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#prikaziStockManagement" prefWidth="200.0" text="LOGOUT">
+      <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#prikaziLogOut" prefWidth="200.0" text="LOGOUT">
          <font>
             <Font name="Agency FB" size="27.0" />
          </font>

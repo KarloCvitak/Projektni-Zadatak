@@ -20,6 +20,11 @@ public class IzbornikController {
         Glavna.prikaziScene(fxmlLoader);
     }
 
+    @FXML
+    public void prikaziLogOut(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("login.fxml"));
+        Glavna.prikaziScene(fxmlLoader);
+    }
 
 
 

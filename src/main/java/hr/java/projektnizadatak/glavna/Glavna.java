@@ -1,5 +1,6 @@
 package hr.java.projektnizadatak.glavna;
 
+import hr.java.projektnizadatak.entitet.Korisnik;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,11 +15,13 @@ import java.util.List;
 public class Glavna extends Application {
 
     static Stage mainStage;
+    static Korisnik currentUser = null;
+
 
     @Override
     public void start(Stage stage) throws IOException {
        mainStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("pocetna.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
         scene.getStylesheets().add(getClass().getResource("projektnizadatak.css").toExternalForm());
         stage.getIcons().add(new Image(Path.of("dat/icon.png").toAbsolutePath().toString()));
@@ -29,6 +32,9 @@ public class Glavna extends Application {
 
 
     }
+
+
+
 
     public static void pogresanUnosPodataka(List<String> podaci){
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -43,6 +49,14 @@ public class Glavna extends Application {
             alert.setContentText(greska + " je obvezan podatak!");
         else
             alert.setContentText(greska + " su obavezni podaci!");
+
+        alert.showAndWait();
+    }
+
+    public static void pogresniUnosBroja(String string){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Pogrešan unos podataka");
+            alert.setContentText("Krivi upis: negativan broj!");
 
         alert.showAndWait();
     }
