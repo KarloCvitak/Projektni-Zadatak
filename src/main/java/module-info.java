@@ -2,7 +2,7 @@ module hr.java.vjezbe.glavna {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.slf4j;
-
+    requires spring.security.crypto;
     requires java.logging;
     requires com.jfoenix;
     requires java.sql;

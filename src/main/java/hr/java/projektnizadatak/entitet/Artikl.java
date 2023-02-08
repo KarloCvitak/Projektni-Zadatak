@@ -1,11 +1,12 @@
 package hr.java.projektnizadatak.entitet;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 //
 
-public class Artikl  extends Entitet {
+public class Artikl extends Entitet {
 
     private String sifraProizvoda;
     private String robnaMarkaProizvoda;
@@ -83,4 +84,11 @@ public class Artikl  extends Entitet {
     public void setDobavljac(Dobavljaci dobavljac) {
         this.dobavljac = dobavljac;
     }
+
+    public String toString() {
+        return getSifraProizvoda() + " - " + getRobnaMarkaProizvoda() + " - " + getKataloskiBrojProizvoda() + " - " + getCijenaProizvoda();
+    }
+
+
+
 }

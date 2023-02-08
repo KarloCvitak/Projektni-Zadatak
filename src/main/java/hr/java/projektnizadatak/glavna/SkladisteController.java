@@ -4,8 +4,7 @@ import hr.java.projektnizadatak.entitet.Dobavljaci;
 import hr.java.projektnizadatak.entitet.Kategorija;
 import hr.java.projektnizadatak.iznimke.BazaPodatakaException;
 import hr.java.projektnizadatak.entitet.Artikl;
-import hr.java.projektnizadatak.util.BazaPodataka;
-import javafx.beans.property.SimpleListProperty;
+import hr.java.projektnizadatak.baza.BazaPodataka;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -14,8 +13,6 @@ import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,8 +61,6 @@ public class SkladisteController {
             kategorijaChoiceBox.setItems(FXCollections.observableList(Arrays.stream(Kategorija.values()).toList()));
             markaChoiceBox.setItems(FXCollections.observableArrayList(artikli.stream().map(Artikl::getRobnaMarkaProizvoda).collect(Collectors.toSet())));
 
-
-
         } catch (BazaPodatakaException e) {
             logger.error(e.getMessage(), e);
             e.printStackTrace();
@@ -98,11 +93,7 @@ public class SkladisteController {
         Glavna.prikaziScene(fxmlLoader);
     }
 
-   public void setPrikazDobavljaca(){
 
-
-
-   }
 
 
     public void pretraziSkladiste(){
@@ -134,6 +125,8 @@ public class SkladisteController {
         try {
             artiklTableView.setItems(FXCollections.observableList(BazaPodataka.getFilteredArtikl(new Artikl(null, sifra, marka, null, kategorija, null, kolicinaProizvoda, new Dobavljaci(null,null)))));
         } catch (BazaPodatakaException e) {
+            logger.error(e.getMessage(), e);
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
 

@@ -1,4 +1,4 @@
-package hr.java.projektnizadatak.util;
+package hr.java.projektnizadatak.baza;
 
 import hr.java.projektnizadatak.entitet.Artikl;
 import hr.java.projektnizadatak.entitet.Dobavljaci;
@@ -168,5 +168,24 @@ public class BazaPodataka {
 
 
 
+    public static void editArtikl(Artikl artikl) throws BazaPodatakaException{
+        try(Connection connection = spajanjeNaBazu()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE ARTIKL SET SIFRA = ?, MARKA = ?, KATALOSKI_BROJ = ?, KATEGORIJA = ?,  CIJENA = ?, KOLICINA = ?, IME_DOBAVLJACA = ?, LOKACIJA = ? WHERE ID = ?");
+
+            preparedStatement.setString(1, artikl.getSifraProizvoda());
+            preparedStatement.setString(2, artikl.getRobnaMarkaProizvoda());
+            preparedStatement.setString(3, artikl.getKataloskiBrojProizvoda());
+            preparedStatement.setString(4, artikl.getKategorija().toString());
+            preparedStatement.setBigDecimal(5, artikl.getCijenaProizvoda());
+            preparedStatement.setInt(6, artikl.getKolicinaProizvoda());
+            preparedStatement.setString(7, artikl.getDobavljac().imeDobavljaca());
+            preparedStatement.setString(8, artikl.getDobavljac().lokacijaDobavljaca().toString());
+            preparedStatement.setLong(9, artikl.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException | IOException e) {
+            throw new BazaPodatakaException(e);
+        }
+    }
 
 }
