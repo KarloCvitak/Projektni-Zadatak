@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="200.0" styleClass="vbox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.projektnizadatak.glavna.IzbornikController">
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="200.0" styleClass="vbox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.projektnizadatak.glavna.IzbornikController">
    <children>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#prikaziStockManagement" prefWidth="200.0" text="SKLADIŠTE">
+      <Button fx:id="skladisteButton" alignment="CENTER" mnemonicParsing="false" onAction="#prikaziStockManagement" prefWidth="200.0" text="SKLADIŠTE">
          <VBox.margin>
             <Insets top="50.0" />
          </VBox.margin>
@@ -17,7 +17,7 @@
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding></Button>
-      <Button  alignment="CENTER" mnemonicParsing="false" onAction="#prikaziIzradaRacuna" prefWidth="200.0" text="IZRADA RACUNA">
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#prikaziIzradaRacuna" prefWidth="200.0" text="IZRADA RACUNA">
          <font>
             <Font name="Agency FB" size="27.0" />
          </font>
@@ -28,6 +28,25 @@
             <Insets top="25.0" />
          </VBox.margin>
       </Button>
+      <Button fx:id="buttonZaPromjene" alignment="CENTER" mnemonicParsing="false" onAction="#prikaziPromjene" prefWidth="200.0" text="PROMJENE">
+         <font>
+            <Font name="Agency FB" size="19.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets top="100.0" />
+         </VBox.margin>
+      </Button>
+      <Button fx:id="buttonZaPromjene" alignment="CENTER" mnemonicParsing="false" onAction="#prikaziKorisnike" prefWidth="200.0" text="KORISNICI">
+         <font>
+            <Font name="Agency FB" size="19.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Button>
       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#prikaziLogOut" prefWidth="200.0" text="LOGOUT">
          <font>
             <Font name="Agency FB" size="27.0" />
@@ -36,8 +55,16 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <VBox.margin>
-            <Insets top="300.0" />
+            <Insets top="200.0" />
          </VBox.margin>
+      </Button>
+      <Button fx:id="buttonZaPromjene" alignment="CENTER" mnemonicParsing="false" onAction="#prikazProfila" prefWidth="200.0" text="MOJ PROFIL">
+         <font>
+            <Font name="Agency FB" size="19.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </Button>
    </children>
 </VBox>

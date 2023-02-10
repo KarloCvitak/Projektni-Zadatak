@@ -3,9 +3,49 @@ package hr.java.projektnizadatak.glavna;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class IzbornikController {
+
+
+    @FXML
+    private VBox vBox;
+    @FXML
+    private Button skladisteButton;
+    @FXML
+    public void initialize(){
+
+        if(Glavna.currentUser.getRole().equals(1)){
+
+            vBox.getChildren().remove(skladisteButton);
+
+        }
+
+
+    }
+    @FXML
+    public void prikaziKorisnike(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("korisnici.fxml"));
+        Glavna.prikaziScene(fxmlLoader);
+    }
+
+    @FXML
+    public void prikazProfila(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("profil.fxml"));
+        Glavna.prikaziScene(fxmlLoader);
+    }
+
+
+    @FXML
+    public void prikaziPromjene(){
+        FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("promjene.fxml"));
+        Glavna.prikaziScene(fxmlLoader);
+    }
+
+
 
     @FXML
     public void prikaziStockManagement(){

@@ -29,11 +29,7 @@ public class PrijavaController {
     @FXML
     private PasswordField passwordField;
 
-    @FXML
-    public void initialize(){
 
-
-    }
 
     @FXML
     public void login(){
@@ -53,7 +49,7 @@ public class PrijavaController {
             if (greske.isEmpty()) {
                 try {
                     Korisnik korisnik = korisnici.stream().filter(u -> u.getUsername().equals(username)).toList().get(0);
-                    if(   encoder.matches(korisnik.getPassword(), encoder.encode(password))){
+                    if(encoder.matches(password, korisnik.getPassword())){
 
                         Glavna.currentUser = korisnik;
                         goToPocetna();

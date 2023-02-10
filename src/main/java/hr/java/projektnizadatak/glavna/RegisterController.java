@@ -1,32 +1,58 @@
 package hr.java.projektnizadatak.glavna;
 
 import hr.java.projektnizadatak.entitet.Korisnik;
+import hr.java.projektnizadatak.entitet.Promjena;
 import hr.java.projektnizadatak.iznimke.DatotekaException;
 import hr.java.projektnizadatak.iznimke.KriviInputException;
+import hr.java.projektnizadatak.threads.AddPromjenaThread;
 import hr.java.projektnizadatak.util.Datoteke;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterController {
     private static final Logger logger = LoggerFactory.getLogger(Glavna.class);
-    @FXML
-    private TextField emailTextField;
+
     @FXML
     private TextField usernameTextField;
     @FXML
     private PasswordField passwordField;
     @FXML
     private PasswordField passwordConfirmField;
+
+    @FXML
+    private ImageView imageView;
+
+    Image image = new Image(Path.of("dat/return.png").toAbsolutePath().toString());
+
+    @FXML
+    public void initialize(){
+
+        imageView.setImage(image);
+
+        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                backToLogin();
+            }
+        });
+
+
+    }
 
     @FXML
     public void register(){
@@ -77,18 +103,17 @@ public class RegisterController {
 
             Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
 
-            Datoteke.addUser(new Korisnik(null, username, encoder.encode(password), 1));
+            Datoteke.addKorisnik(new Korisnik(null, username, encoder.encode(password), 1));
             backToLogin();
 
-        /*
             new Thread( new AddPromjenaThread(new Promjena(
                     null,
-                    "Dodaj korisnika",
-                    "NE POSTOJI",
+                    "Dodan korisnik",
+                    "-",
                     username,
-                    1,
+                    username,
                     LocalDateTime.now()
-            ))).start();*/
+            ))).start();
 
 
         } catch (DatotekaException e){
