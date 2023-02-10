@@ -60,7 +60,7 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#filter" text="Promijeni" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Button mnemonicParsing="false" onAction="#spremi" text="Promijeni" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
