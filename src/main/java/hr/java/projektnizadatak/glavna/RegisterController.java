@@ -77,10 +77,10 @@ public class RegisterController {
             }
             List<Korisnik> korisnik = korisnici.stream().filter(u -> (u.getUsername().equals(username))).toList();
             if (!korisnik.isEmpty()) {
-                logger.warn("To korisnicko ime ili email se vec koristi", new KriviInputException("To korisnicko ime ili email se vec koristi"));
+                logger.warn("To korisnicko ime vec koristi", new KriviInputException("To korisnicko ime se vec koristi"));
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Pogrešan unos podataka");
-                alert.setHeaderText("Korisnicko ime ili email se vec koristi");
+                alert.setHeaderText("Korisnicko ime se vec koristi");
                 alert.showAndWait();
                 return;
             }

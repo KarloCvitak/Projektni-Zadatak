@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -120,9 +121,11 @@ public class KorisnikController {
     }
 
 
+
     @FXML
     private void spremi(){
         try {
+            selectedKorisnik = korisnikTableView.getSelectionModel().getSelectedItem();
             String korisnickoIme = korisnickoImeTextField.getText();
             Integer razinaPrava = razinaPravaChoiceBox.getValue();
             List<String> greske = new ArrayList<>();
@@ -179,6 +182,8 @@ public class KorisnikController {
 
                         if(!promjene.isEmpty())
                             new Thread(new AddPromjeneThread(promjene)).start();
+
+                        Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
 
                         selectedKorisnik.setUsername(korisnickoIme);
                         selectedKorisnik.setRole(razinaPrava);
