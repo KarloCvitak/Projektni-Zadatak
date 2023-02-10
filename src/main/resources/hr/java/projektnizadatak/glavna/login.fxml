@@ -12,19 +12,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-500" minWidth="-700" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.java.projektnizadatak.glavna.PrijavaController">
    <children>
-      <VBox layoutX="350.0" layoutY="111.0" prefHeight="420.0" prefWidth="300.0" style="-fx-background-color: #361D2EFF;">
+      <VBox layoutX="350.0" layoutY="114.0" prefHeight="420.0" prefWidth="300.0" style="-fx-background-color: #361D2EFF;">
          <children>
             <TextField fx:id="usernameTextField" promptText="Ime">
                <VBox.margin>
                   <Insets bottom="10.0" left="50.0" right="50.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField promptText="Password">
+            <PasswordField fx:id="passwordField" promptText="Password">
                <VBox.margin>
                   <Insets left="50.0" right="50.0" />
                </VBox.margin>
             </PasswordField>
-            <Button fx:id="passwordField" alignment="CENTER" mnemonicParsing="false" onAction="#login" stylesheets="@projektnizadatak.css" text="Login">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#login" stylesheets="@projektnizadatak.css" text="Login">
                <VBox.margin>
                   <Insets left="120.0" top="30.0" />
                </VBox.margin>

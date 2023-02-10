@@ -1,6 +1,7 @@
 package hr.java.projektnizadatak.glavna;
 
 import hr.java.projektnizadatak.entitet.Korisnik;
+import hr.java.projektnizadatak.entitet.Promjena;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,8 +9,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Glavna extends Application {
@@ -17,9 +19,12 @@ public class Glavna extends Application {
     static Stage mainStage;
     static Korisnik currentUser = null;
 
+    private static final String PROMJENE_PATH = "dat/promjene.dat";
 
     @Override
     public void start(Stage stage) throws IOException {
+
+
        mainStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Glavna.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
@@ -32,8 +37,6 @@ public class Glavna extends Application {
 
 
     }
-
-
 
 
     public static void pogresanUnosPodataka(List<String> podaci){

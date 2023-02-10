@@ -1,0 +1,4 @@
+1
+admin
+$argon2id$v=19$m=15360,t=2,p=1$oCoZ7ItI5nO4Pr+eCI0655DZNw3cSAJRzCXcpyZoJE8$3g/JBF+oPGtP4RUTbmcCWin7S8cT4cwVqHup/QN01joVpMSocMeo6Ej9gbaFlEnGJk4QyNkydOOxdd737Iamzg
+0

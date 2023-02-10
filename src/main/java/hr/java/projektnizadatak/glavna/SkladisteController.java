@@ -84,7 +84,27 @@ public class SkladisteController {
                 prikazDobavljaca.setText(newSelection.getDobavljac().imeDobavljaca() + "\n" + newSelection.getDobavljac().lokacijaDobavljaca());
             }
         });
+
+
+        markaChoiceBox.setOnMouseClicked(event -> {
+            if (markaChoiceBox.getValue() != null) {
+                markaChoiceBox.setValue(null);
+            }
+        });
+
+        kategorijaChoiceBox.setOnMouseClicked(event -> {
+            if (kategorijaChoiceBox.getValue() != null) {
+                kategorijaChoiceBox.setValue(null);
+            }
+        });
+
     }
+
+
+
+
+
+
 
 
     @FXML

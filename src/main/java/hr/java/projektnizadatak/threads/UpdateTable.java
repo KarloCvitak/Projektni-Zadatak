@@ -20,9 +20,7 @@ public class UpdateTable implements Runnable{
             try {
                 artiklTableView.setItems(FXCollections.observableList(BazaPodataka.getArtikl()));
                 Thread.sleep(5555);
-            } catch (BazaPodatakaException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
+            } catch (BazaPodatakaException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
