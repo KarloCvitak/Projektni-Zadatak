@@ -1,13 +1,13 @@
 package hr.java.projektnizadatak.entitet;
 
-public class Korisnik extends Entitet{
+public class Korisnik<T extends Integer> extends Entitet{
 
     private String username;
     private String password;
-    private Integer role;
+    private T role;
 
 
-    public Korisnik(Long id, String username, String password, Integer role) {
+    public Korisnik(Long id, String username, String password, T role) {
         super(id);
         this.username = username;
         this.password = password;
@@ -31,11 +31,11 @@ public class Korisnik extends Entitet{
         this.password = password;
     }
 
-    public Integer getRole() {
+    public T getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(T role) {
         this.role = role;
     }
 }

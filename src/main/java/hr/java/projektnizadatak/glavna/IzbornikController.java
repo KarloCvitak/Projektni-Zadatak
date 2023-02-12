@@ -16,12 +16,17 @@ public class IzbornikController {
     @FXML
     private Button skladisteButton;
     @FXML
+    private Button promjeneButton;
+    @FXML
+    private Button profiliButton;
+    @FXML
     public void initialize(){
 
         if(Glavna.currentUser.getRole().equals(1)){
 
             vBox.getChildren().remove(skladisteButton);
-
+            vBox.getChildren().remove(promjeneButton);
+            vBox.getChildren().remove(profiliButton);;
         }
 
 

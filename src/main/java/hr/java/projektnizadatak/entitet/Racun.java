@@ -1,15 +1,45 @@
 package hr.java.projektnizadatak.entitet;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
-public final class Racun extends Artikl implements Total {
+public final class Racun extends Entitet implements Total {
 
-    private List<Artikl> listaArtikla;
+    private List<Artikl> artikli;
+    private LocalDateTime localDateTime;
+    private Korisnik<Integer> korisnik;
 
-    public Racun(Long id, String sifraProizvoda, String robnaMarkaProizvoda, String kataloskiBrojProizvoda, Kategorija kategorija, BigDecimal cijenaProizvoda, Integer kolicinaProizvoda, Dobavljaci dobavljac, List<Artikl> listaArtikla) {
-        super(id, sifraProizvoda, robnaMarkaProizvoda, kataloskiBrojProizvoda, kategorija, cijenaProizvoda, kolicinaProizvoda, dobavljac);
-        this.listaArtikla = listaArtikla;
+
+     Racun(Long id, List<Artikl> artikli, LocalDateTime localDateTime, Korisnik<Integer> korisnik) {
+        super(id);
+        this.artikli = artikli;
+        this.localDateTime = localDateTime;
+        this.korisnik = korisnik;
+    }
+
+    public List<Artikl> getArtikli() {
+        return artikli;
+    }
+
+    public void setArtikli(List<Artikl> artikli) {
+        this.artikli = artikli;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    public Korisnik<Integer> getKorisnik() {
+        return korisnik;
+    }
+
+    public void setKorisnik(Korisnik<Integer> korisnik) {
+        this.korisnik = korisnik;
     }
 
     @Override
@@ -21,5 +51,8 @@ public final class Racun extends Artikl implements Total {
 
         return sum;
     }
+
+
+
 
 }

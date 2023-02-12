@@ -68,24 +68,26 @@ public class ProfilController {
                     return;
                 }
 
+                Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
+
+                new Thread( new AddPromjenaThread(new Promjena(
+                        null,
+                        "Promjena korisnik",
+                        Glavna.currentUser.getUsername(),
+                        imeTextField.getText(),
+                        Glavna.currentUser.getUsername(),
+                        LocalDateTime.now()
+                ))).start();
+
+                Glavna.currentUser.setPassword(encoder.encode(password));
+
             }
 
 
 
-            Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
-
-            new Thread( new AddPromjenaThread(new Promjena(
-                    null,
-                    "Promjena korisnik",
-                    Glavna.currentUser.getUsername(),
-                    imeTextField.getText(),
-                    Glavna.currentUser.getUsername(),
-                    LocalDateTime.now()
-            ))).start();
 
 
             Glavna.currentUser.setUsername(ime);
-            Glavna.currentUser.setPassword(encoder.encode(password));
 
             Datoteke.editKorisnik(Glavna.currentUser);
 

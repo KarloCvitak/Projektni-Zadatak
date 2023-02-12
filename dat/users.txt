@@ -1,4 +1,8 @@
 1
 admin
-$argon2id$v=19$m=15360,t=2,p=1$J5o52wyeK4MR59bqm57+bSzKIFaryoXb6J5h8DNnKjs$Hrkwyo+k7ASxwqK8eOUwXfHKKvCHOKcmbGMOQrACzepDMjKDjodt8SjysilcPTCY7O5jIMozyPq0xu0TDJx5sA
+$argon2id$v=19$m=15360,t=2,p=1$ChFxWQV8fs/f5rWzilcfs0SDVucsH9ZnGWMPbG4fsmc$p7fAuS33EJr6cTZzTLclwrvjcffIeGhM6ON2RUHYXPYQDzgbBvZDyfg6BRXCIonRdA3E51MbofmfRaL1BxUuJw
 0
+2
+zaposlenik
+$argon2id$v=19$m=15360,t=2,p=1$FjhSM0vuO9fymnW/Ucpi/9+U7krHYMXqOl85qsVc+ds$YMq5HHoL0Nvjk7HsmhHWe+kqeNRGbNvRhXmQagxW8pEA3pzKSUW4hUsxVAEAYVTb08jE0LxRxenoftb11Vs9mA
+1

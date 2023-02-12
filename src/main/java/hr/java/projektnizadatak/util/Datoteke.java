@@ -1,18 +1,23 @@
 package hr.java.projektnizadatak.util;
 
-import hr.java.projektnizadatak.entitet.Korisnik;
-import hr.java.projektnizadatak.entitet.Promjena;
+import hr.java.projektnizadatak.baza.BazaPodataka;
+import hr.java.projektnizadatak.entitet.*;
 import hr.java.projektnizadatak.glavna.Glavna;
+import hr.java.projektnizadatak.iznimke.BazaPodatakaException;
 import hr.java.projektnizadatak.iznimke.DatotekaException;
 import javafx.fxml.FXMLLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
@@ -26,7 +31,96 @@ public class Datoteke {
 
     public static final int SIZE_OF_USERS = 4;
 
-    public static List<Korisnik> getKorisnike() throws DatotekaException {
+
+    private static final String RACUN_PATH = "dat/racuni/";
+
+
+    public static List<Racun> getRacune() throws DatotekaException {
+
+
+        List<Racun> racuni = new ArrayList<>();
+
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Path.of(RACUN_PATH))) {
+
+
+            for (Path file : stream) {
+
+                List<String> lines = Files.lines(file).toList();
+
+                RacunBuilder racunBuilder = new RacunBuilder();
+                racunBuilder.setId(Long.parseLong(lines.get(0)));
+                racunBuilder.setKorisnik(getKorisnike().stream().filter(x -> x.getUsername().equals(lines.get(1))).toList().get(0));
+                racunBuilder.setLocalDateTime(LocalDateTime.parse(lines.get(2), DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm")));
+                List<Long> listaID = Arrays.stream(lines.get(3).split(" ")).map(Long::parseLong).toList();
+                racunBuilder.setArtikli(BazaPodataka.getArtikl().stream().filter(x -> listaID.contains(x.getId())).collect(Collectors.toList()));
+
+                racuni.add(racunBuilder.createRacun());
+
+            } }
+         catch(IOException e){
+                logger.error(e.getMessage(), e);
+                e.printStackTrace();
+                throw new DatotekaException(e);
+            } catch (BazaPodatakaException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return racuni;
+
+
+
+    }
+
+
+    /*try(BufferedReader reader = new BufferedReader(new FileReader(file.toFile()))){
+
+
+
+
+
+                }catch (IOException v) {
+                    logger.error(v.getMessage(), v);
+                    v.printStackTrace();
+                    throw new DatotekaException(v);
+                }*/
+
+    public static void spremiRacun(Racun racun) throws DatotekaException{
+
+
+        Long id = getRacune().stream().mapToLong(x -> x.getId()).max().orElse(0) + 1;
+        String naziv = id.toString() + ".txt";
+
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(RACUN_PATH + naziv, true))) {
+
+
+
+            out.write(id.toString() + '\n' );
+            out.write(racun.getKorisnik().getUsername() + '\n');
+            out.write(racun.getLocalDateTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm")) + '\n');
+            StringBuilder artiklID = new StringBuilder();
+            artiklID.append(racun.getArtikli().get(0).getId().toString());
+
+            for (int c=1; c < racun.getArtikli().size(); c++)
+                artiklID.append(" " + racun.getArtikli().get(c).getId().toString());
+
+            out.write( artiklID.toString() + '\n');
+
+        } catch (IOException e){
+            logger.error(e.getMessage(), e);
+            e.printStackTrace();
+            throw new DatotekaException(e);
+
+        }
+
+
+
+
+        }
+
+
+    public static List<Korisnik>  getKorisnike() throws DatotekaException {
         try(BufferedReader reader = new BufferedReader(new FileReader(USERS_PATH))) {
             List<String> usersLines = reader.lines().collect(Collectors.toList());
             List<Korisnik> users = new ArrayList<>();
