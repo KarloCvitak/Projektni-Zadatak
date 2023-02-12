@@ -28,7 +28,7 @@
             <Insets top="25.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="buttonZaPromjene" alignment="CENTER" mnemonicParsing="false" onAction="#prikaziPromjene" prefWidth="200.0" text="PROMJENE">
+      <Button fx:id="promjeneButton" alignment="CENTER" mnemonicParsing="false" onAction="#prikaziPromjene" prefWidth="200.0" text="PROMJENE">
          <font>
             <Font name="Agency FB" size="19.0" />
          </font>
@@ -39,7 +39,7 @@
             <Insets top="100.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="buttonZaPromjene" alignment="CENTER" mnemonicParsing="false" onAction="#prikaziKorisnike" prefWidth="200.0" text="KORISNICI">
+      <Button fx:id="profiliButton" alignment="CENTER" mnemonicParsing="false" onAction="#prikaziKorisnike" prefWidth="200.0" text="KORISNICI">
          <font>
             <Font name="Agency FB" size="19.0" />
          </font>

@@ -85,9 +85,12 @@ public class Artikl extends Entitet {
         this.dobavljac = dobavljac;
     }
 
+    @Override
     public String toString() {
         return getSifraProizvoda() + " - " + getRobnaMarkaProizvoda() + " - " + getKataloskiBrojProizvoda() + " - " + getCijenaProizvoda();
     }
+
+
 
 
 

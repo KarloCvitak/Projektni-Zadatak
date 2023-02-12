@@ -21,7 +21,7 @@ public class PocetnaController{
     public void initialize() {
 
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e ->
-                time.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy\nHH:mm:ss")))
+                time.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy.\nHH:mm:ss")))
         ),
                 new KeyFrame(Duration.seconds(1))
         );

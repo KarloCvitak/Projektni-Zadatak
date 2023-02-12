@@ -2,6 +2,9 @@ package hr.java.projektnizadatak.glavna;
 
 import hr.java.projektnizadatak.entitet.Korisnik;
 import hr.java.projektnizadatak.entitet.Promjena;
+import hr.java.projektnizadatak.iznimke.DatotekaException;
+import hr.java.projektnizadatak.util.Datoteke;
+import hr.java.projektnizadatak.util.MakeHTML;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,7 +20,7 @@ import java.util.List;
 public class Glavna extends Application {
 
     static Stage mainStage;
-    static Korisnik currentUser = null;
+    static Korisnik<Integer> currentUser = null;
 
     private static final String PROMJENE_PATH = "dat/promjene.dat";
 
@@ -33,7 +36,6 @@ public class Glavna extends Application {
         stage.setTitle("Faktura");
         stage.setScene(scene);
         stage.show();
-
 
 
     }
