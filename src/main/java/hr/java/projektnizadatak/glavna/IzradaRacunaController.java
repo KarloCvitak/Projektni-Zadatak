@@ -130,26 +130,37 @@ public class IzradaRacunaController {
 
 
         Artikl artikl = artiklTableView.getSelectionModel().getSelectedItem();
-        racun.addArtikl(artikl);
+        if (artikl.getKolicinaProizvoda() > 0) {
+            artikl.setKolicinaProizvoda(artikl.getKolicinaProizvoda() - 1);
 
-        try {
+            racun.addArtikl(artikl);
 
-            webEngine.loadContent(MakeHTML.racunHTML(racun));
+            try {
 
-        } catch (DatotekaException e){
-            logger.error(e.getMessage(), e);
-            e.printStackTrace();
+                webEngine.loadContent(MakeHTML.racunHTML(racun));
+
+            } catch (DatotekaException e){
+                logger.error(e.getMessage(), e);
+                e.printStackTrace();
+            }
+
+
+
+            try {
+                BazaPodataka.editArtikl(artikl);
+
+            } catch (BazaPodatakaException e) {
+                logger.error(e.getMessage(), e);
+                e.printStackTrace();
+            }
+
+
+
+        } else{
+            Glavna.krivaVrijednostBroja();
         }
 
-        artikl.setKolicinaProizvoda(artikl.getKolicinaProizvoda() - 1);
 
-        try {
-            BazaPodataka.editArtikl(artikl);
-
-        } catch (BazaPodatakaException e) {
-            logger.error(e.getMessage(), e);
-            e.printStackTrace();
-        }
 
 
 
@@ -170,14 +181,15 @@ public class IzradaRacunaController {
             dodaniArtikli.setItems(FXCollections.observableList(racun.getArtikli()));
             try {
                 BazaPodataka.editArtikl(artikl);
+                webEngine.loadContent(MakeHTML.racunHTML(racun));
 
-            } catch (BazaPodatakaException e) {
+
+            } catch (BazaPodatakaException | DatotekaException e) {
                 logger.error(e.getMessage(), e);
                 e.printStackTrace();
             }
 
         }
-
 
 
     }

@@ -33,7 +33,7 @@
           <RowConstraints maxHeight="347.0" minHeight="10.0" prefHeight="163.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="korisnikTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <TableView fx:id="korisnikTableView" onMouseClicked="#setKorisnik" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
               <columns>
                 <TableColumn fx:id="korisnickoImeColumn" prefWidth="75.0" text="Ime" />
                   <TableColumn fx:id="razinaPravaColumn" prefWidth="152.0" text="Korisnicka Rola" />

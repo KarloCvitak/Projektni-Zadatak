@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,6 +28,7 @@ public interface MakeHTML {
     public static void racun(Racun racun) throws DatotekaException {
 
 
+        List <BigDecimal> listaCijena = new ArrayList<>();
 
         StringBuilder html = new StringBuilder();
         html.append("<html lang=\"hrv\">\n" +
@@ -53,6 +55,7 @@ public interface MakeHTML {
                 "        </div>");
 
         for (Artikl artikl : racun.getArtikli() ){
+            listaCijena.add(artikl.getCijenaProizvoda());
 
             html.append("    <div class=\"artikl\">  \n" +
                     "            <p>" + artikl.getKataloskiBrojProizvoda() + "</p>\n" +
@@ -61,15 +64,19 @@ public interface MakeHTML {
                     "        </div>"
             );
 
-            html.append("</body></html>");
+
+
 
     }
+        html.append("</body><hr> <div><p>Total:" + racun.zbroj(listaCijena) + "</p> <p>Racun izradio: " + racun.getKorisnik() + "</p> <hr> <p>Vrijeme izrade: "+ racun.getLocalDateTime() +"</p></div> </html>");
+
+
 
         Path path = Path.of(("dat/racuniHTML/" + racun.getId() + ".html"));
 
         try {
             Files.writeString(path, html.toString());
-            System.out.println("BABADOOK " + racun.getId());
+          //  System.out.println("BABADOOK " + racun.getId());
         } catch (IOException e){
             throw new DatotekaException();
         }
@@ -78,6 +85,7 @@ public interface MakeHTML {
 
 
     public static String racunHTML(RacunBuilder racun) throws DatotekaException {
+        List <BigDecimal> listaCijena = new ArrayList<>();
 
 
         StringBuilder html = new StringBuilder();
@@ -107,7 +115,7 @@ public interface MakeHTML {
                 "        </div>");
 
         for (Artikl artikl : racun.getArtikli() ){
-
+            listaCijena.add(artikl.getCijenaProizvoda());
             html.append("    <div class=\"artikl\">  \n" +
                     "            <p>" + artikl.getKataloskiBrojProizvoda() + "</p>\n" +
                     "            <p>" + artikl.getRobnaMarkaProizvoda() + "</p>\n" +
@@ -115,9 +123,10 @@ public interface MakeHTML {
                     "        </div>"
             );
 
-            html.append("</body></html>");
-
         }
+
+        html.append("</body> <hr> <div><p>Total: " + racun.zbroj(listaCijena) + "</p></div> </html>");
+
 
        return html.toString();
 

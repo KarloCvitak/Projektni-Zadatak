@@ -43,11 +43,9 @@ public final class Racun extends Entitet implements Total {
     }
 
     @Override
-    public BigDecimal zbroj(List<Artikl> listaArtikla) {
+    public BigDecimal zbroj(List<BigDecimal> listaArtikla) {
 
-        BigDecimal sum = listaArtikla.stream()
-                .map(Artikl::getCijenaProizvoda)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal sum = listaArtikla.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return sum;
     }
