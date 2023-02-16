@@ -16,8 +16,8 @@ public class AddPromjeneThread implements Runnable{
     public void run() {
         try {
             Datoteke.addPromjene(promjene);
-        } catch (PromjeneException e) {
-            throw new RuntimeException(e);
+        } catch (RuntimeException e) {
+            throw new PromjeneException(e);
         }
     }
 }

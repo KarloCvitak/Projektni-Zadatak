@@ -18,6 +18,8 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class KorisnikController {
     private static final Logger logger = LoggerFactory.getLogger(Glavna.class);
@@ -65,6 +67,18 @@ public class KorisnikController {
 
     }
 
+    @FXML
+    private void setKorisnik(){
+
+        Korisnik korisnik = korisnikTableView.getSelectionModel().getSelectedItem();
+
+        if(korisnik != null)
+        {
+            korisnickoImeTextField.setText(korisnik.getUsername());
+            razinaPravaChoiceBox.setValue(korisnik.getRole());
+        }
+
+    }
 
     @FXML
     private void filter(){
@@ -79,6 +93,8 @@ public class KorisnikController {
             filteredUsers = filteredUsers.stream().filter(user -> user.getRole().equals(razinaPrava)).toList();
 
         korisnikTableView.setItems(FXCollections.observableList(filteredUsers));
+
+
     }
 
 
@@ -93,8 +109,10 @@ public class KorisnikController {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Brisanje");
             alert.setHeaderText("Želite li obrisati korisnika?");
-            ButtonType daButton = new ButtonType("Da", ButtonBar.ButtonData.YES);
-            ButtonType neButton = new ButtonType("Ne", ButtonBar.ButtonData.NO);
+
+            ButtonType daButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType neButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+
             alert.getButtonTypes().setAll(daButton, neButton);
             alert.showAndWait().ifPresent(response -> {
                 try {
@@ -122,8 +140,9 @@ public class KorisnikController {
 
 
 
-    @FXML
-    private void spremi(){
+  //  @FXML
+
+    public void spremi() throws DatotekaException {
         try {
             selectedKorisnik = korisnikTableView.getSelectionModel().getSelectedItem();
             String korisnickoIme = korisnickoImeTextField.getText();
@@ -142,7 +161,7 @@ public class KorisnikController {
             List<Korisnik> sameUser = korisnici.stream().filter(u -> (u.getUsername().equals(korisnickoIme))).toList();
 
             if (!(sameUser.isEmpty() || korisnickoIme.equals(selectedKorisnik.getUsername()))) {
-                logger.warn("To korisnicko ime ili email se vec koristi", new KriviInputException("To korisnicko ime ili email se vec koristi"));
+                logger.warn("To korisnicko ime se vec koristi", new KriviInputException("To korisnicko ime se vec koristi"));
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Pogrešan unos podataka");
                 alert.setHeaderText("Korisnicko ime ili email se vec koristi");
@@ -199,7 +218,13 @@ public class KorisnikController {
         } catch (KriviInputException e){
             logger.warn(e.getMessage(), e);
         }
+
+
+        korisnikTableView.setItems(FXCollections.observableList(Datoteke.getKorisnike()));
+
+
     }
+
 
 
 }

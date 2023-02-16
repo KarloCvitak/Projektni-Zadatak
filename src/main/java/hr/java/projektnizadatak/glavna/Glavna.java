@@ -66,6 +66,14 @@ public class Glavna extends Application {
         alert.showAndWait();
     }
 
+    public static void krivaVrijednostBroja(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Pogreška");
+        alert.setContentText("Artikl je nedostupan!");
+
+        alert.showAndWait();
+    }
+
 
     public static void prikaziScene(FXMLLoader fxmlLoader){
         try {

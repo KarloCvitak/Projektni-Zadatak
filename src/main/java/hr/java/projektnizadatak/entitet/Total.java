@@ -5,7 +5,7 @@ import java.util.List;
 
 public sealed interface Total permits Racun, RacunBuilder{
 
-    BigDecimal zbroj(List<Artikl> listaArtikla);
+    BigDecimal zbroj(List<BigDecimal> listaArtikla);
 
 
 

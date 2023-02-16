@@ -3,10 +3,12 @@ package hr.java.projektnizadatak.glavna;
 import hr.java.projektnizadatak.entitet.*;
 import hr.java.projektnizadatak.iznimke.BazaPodatakaException;
 import hr.java.projektnizadatak.baza.BazaPodataka;
+import hr.java.projektnizadatak.iznimke.DatotekaException;
 import hr.java.projektnizadatak.iznimke.PromjeneException;
 import hr.java.projektnizadatak.threads.AddPromjenaThread;
 import hr.java.projektnizadatak.threads.AddPromjeneThread;
 import hr.java.projektnizadatak.threads.UpdateTable;
+import hr.java.projektnizadatak.util.Datoteke;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -184,51 +187,60 @@ public class UredivanjeSkladistaController {
 
     @FXML
     public void spremi() {
-        try {
-            String sifra = sifraTextField.getText();
-            String marka = robnaMarkaTextField.getText();
-            String kataloskiBroj = kataloskiBrojTextField.getText();
 
 
-            String cijena = cijenaTextField.getText();
-            String kolicina = kolicinaTextField.getText();
-
-            BigDecimal cijenaBD = null;
-            Integer kolicinaINT = null;
-
-            Kategorija kategorija = kategorijaChoiceBox.getValue();
-            String ime = dostavaTextField.getText();
-            Lokacija lokacija = dostavaChoiceBox.getValue();
-
-            List<String> greske = new ArrayList<>();
-            List<String> greskeZaKriviBroj = new ArrayList<>();
-
-            if (sifra.isEmpty())
-                greske.add("sifra");
-            if (marka.isEmpty())
-                greske.add("marka");
-            if (kataloskiBroj.isEmpty())
-                greske.add("kataloski broj");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Spremanje");
+        alert.setHeaderText("Želite li spremiti podatke o korisniku?");
+        ButtonType daButton = new ButtonType("Da", ButtonBar.ButtonData.YES);
+        ButtonType neButton = new ButtonType("Ne", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(daButton, neButton);
+        alert.showAndWait().ifPresent(response -> {
+            try {
+                String sifra = sifraTextField.getText();
+                String marka = robnaMarkaTextField.getText();
+                String kataloskiBroj = kataloskiBrojTextField.getText();
 
 
-            if (ime.isEmpty())
-                greske.add("ime dostavljaca");
+                String cijena = cijenaTextField.getText();
+                String kolicina = kolicinaTextField.getText();
 
-            if (kategorija == null) {
-                greske.add("kategorija");
-            }
+                BigDecimal cijenaBD = null;
+                Integer kolicinaINT = null;
 
-            if (lokacija == null) {
-                greske.add("lokacija");
+                Kategorija kategorija = kategorijaChoiceBox.getValue();
+                String ime = dostavaTextField.getText();
+                Lokacija lokacija = dostavaChoiceBox.getValue();
 
-            }
+                List<String> greske = new ArrayList<>();
+                List<String> greskeZaKriviBroj = new ArrayList<>();
 
-            if (cijena.isEmpty())
-                greske.add("cijena");
-            else
-                cijenaBD = new BigDecimal(cijena);
+                if (sifra.isEmpty())
+                    greske.add("sifra");
+                if (marka.isEmpty())
+                    greske.add("marka");
+                if (kataloskiBroj.isEmpty())
+                    greske.add("kataloski broj");
 
-            if (kolicina.isEmpty())
+
+                if (ime.isEmpty())
+                    greske.add("ime dostavljaca");
+
+                if (kategorija == null) {
+                    greske.add("kategorija");
+                }
+
+                if (lokacija == null) {
+                    greske.add("lokacija");
+
+                }
+
+                if (cijena.isEmpty())
+                    greske.add("cijena");
+                else
+                    cijenaBD = new BigDecimal(cijena);
+
+                if (kolicina.isEmpty())
                     greske.add("kolicina");
                 else {
                     kolicinaINT = Integer.parseInt(kolicina);
@@ -254,9 +266,14 @@ public class UredivanjeSkladistaController {
 
 
             }
-             catch(BazaPodatakaException e){
+            catch(BazaPodatakaException e){
                 throw new RuntimeException(e);
             }
+
+        });
+
+
+
 
     }
 
@@ -269,23 +286,37 @@ public class UredivanjeSkladistaController {
 
     @FXML
     public void delete(){
-        try {
-            Artikl artikl = artiklTableView.getSelectionModel().getSelectedItem();
 
-            new Thread(new AddPromjenaThread(new Promjena(
-                    null,
-                    "Brisanje",
-                    artikl.getSifraProizvoda(),
-                    "-",
-                    Glavna.currentUser.getUsername(),
-                    LocalDateTime.now()
-            ))).start();
 
-            BazaPodataka.deleteArtikl(artikl);
-            artiklTableView.setItems(FXCollections.observableList(BazaPodataka.getArtikl()));
-        } catch (BazaPodatakaException e) {
-            throw new RuntimeException(e);
-        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Spremanje");
+        alert.setHeaderText("Želite li spremiti podatke o korisniku?");
+        ButtonType daButton = new ButtonType("Da", ButtonBar.ButtonData.YES);
+        ButtonType neButton = new ButtonType("Ne", ButtonBar.ButtonData.NO);
+        alert.getButtonTypes().setAll(daButton, neButton);
+        alert.showAndWait().ifPresent(response -> {
+            try {
+                Artikl artikl = artiklTableView.getSelectionModel().getSelectedItem();
+
+                new Thread(new AddPromjenaThread(new Promjena(
+                        null,
+                        "Brisanje",
+                        artikl.getSifraProizvoda(),
+                        "-",
+                        Glavna.currentUser.getUsername(),
+                        LocalDateTime.now()
+                ))).start();
+
+                BazaPodataka.deleteArtikl(artikl);
+                artiklTableView.setItems(FXCollections.observableList(BazaPodataka.getArtikl()));
+            } catch (BazaPodatakaException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+
+
     }
 
 
